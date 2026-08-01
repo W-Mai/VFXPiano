@@ -396,3 +396,26 @@ canvas {
   opacity: 0.8;
   margin: 12px 0;
 }
+
+/* ---------- Powered by Atman ---------- */
+.bb-powered {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-left: 6px;
+}
+.bb-powered a {
+  color: var(--fg);
+  text-decoration: none;
+}
+.bb-powered a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+.atman-logo {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}

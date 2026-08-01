@@ -62,3 +62,9 @@ pnpm tauri dev
 ## 📄 许可
 
 MIT
+
+---
+
+<p align="center">
+  <sub>Powered by <img src="docs/atman-logo.png" width="22" height="22" alt="Atman" style="vertical-align:middle" /> <a href="https://github.com/W-Mai/atman">Atman</a></sub>
+</p>
