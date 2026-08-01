@@ -2,9 +2,9 @@ name: Web
 permissions:
   contents: write
 
-# Build the oranda landing page from the README and deploy it to the gh-pages
-# branch. Re-runs on every push to main and whenever a Release completes so the
-# download links stay in sync with the latest release.
+# Build the frontend-only web app (fullscreen piano + bottom bar) with Vite and
+# deploy it to the gh-pages branch. Re-runs on push to main and after each
+# Release so the page always reflects the latest.
 on:
   pull_request:
   push:
@@ -15,23 +15,21 @@ on:
 
 jobs:
   web:
-    name: Build and deploy site
+    name: Build and deploy web landing page
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
-
-      - name: Install and run oranda
-        run: |
-          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/oranda/releases/download/v0.6.1/oranda-installer.sh | sh
-          oranda build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm vite build --config vite.web.config.ts
+      - uses: JamesIves/github-pages-deploy-action@v4.4.1
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           branch: gh-pages
-          folder: public
+          folder: dist-web
           token: ${{ secrets.GITHUB_TOKEN }}
           single-commit: true

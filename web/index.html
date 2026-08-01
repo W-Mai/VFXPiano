@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VFXPiano</title>
+    <meta
+      name="description"
+      content="VFXPiano — 把每一次按键，都变成一场烟花。88 键炫彩钢琴可视化，三层 GPU 粒子特效，Web MIDI + 键盘演奏。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="overlay"></div>
+
+    <div id="bottombar">
+      <div class="bb-left">
+        <span class="bb-logo">🎹</span>
+        <span class="bb-name">VFXPiano</span>
+        <span class="bb-tag">把每一次按键，都变成一场烟花</span>
+      </div>
+      <div class="bb-right">
+        <a href="https://github.com/W-Mai/VFXPiano" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/W-Mai/VFXPiano/tree/main/src" target="_blank" rel="noopener">Source</a>
+        <a href="https://github.com/W-Mai/VFXPiano/releases" target="_blank" rel="noopener">v0.1.0</a>
+        <button id="help-btn" class="bb-btn">Help</button>
+      </div>
+    </div>
+
+    <div id="help-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-box">
+        <button class="modal-close" aria-label="关闭">×</button>
+        <div id="help-content" class="markdown-body">加载中…</div>
+      </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
