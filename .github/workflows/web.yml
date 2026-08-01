@@ -1,0 +1,37 @@
+name: Web
+permissions:
+  contents: write
+
+# Build the oranda landing page from the README and deploy it to the gh-pages
+# branch. Re-runs on every push to main and whenever a Release completes so the
+# download links stay in sync with the latest release.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+
+jobs:
+  web:
+    name: Build and deploy site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install and run oranda
+        run: |
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/oranda/releases/download/v0.6.1/oranda-installer.sh | sh
+          oranda build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          branch: gh-pages
+          folder: public
+          token: ${{ secrets.GITHUB_TOKEN }}
+          single-commit: true

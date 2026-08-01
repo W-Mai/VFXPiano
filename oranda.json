@@ -1,0 +1,10 @@
+{
+  "components": {
+    "artifacts": {
+      "auto": true
+    }
+  },
+  "styles": {
+    "theme": "cupcake"
+  }
+}
