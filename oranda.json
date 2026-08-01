@@ -1,4 +1,6 @@
 {
+  "name": "VFXPiano",
+  "path_prefix": "/VFXPiano",
   "components": {
     "artifacts": {
       "auto": true
