@@ -54,6 +54,19 @@ function noteOff(note: number) {
 const overlay = document.getElementById("overlay");
 overlay?.appendChild(createMidiPanel());
 
+// Mute toggle (top-right): silences the synth immediately.
+const muteBtn = document.createElement("button");
+muteBtn.className = "mute-btn";
+muteBtn.textContent = "🔊 音效";
+muteBtn.title = "静音 / 取消静音";
+muteBtn.addEventListener("click", () => {
+  const m = !synth.isMuted();
+  synth.setMuted(m);
+  muteBtn.textContent = m ? "🔇 静音" : "🔊 音效";
+  muteBtn.classList.toggle("muted", m);
+});
+overlay?.appendChild(muteBtn);
+
 const loadStatus = document.createElement("div");
 loadStatus.className = "load-status";
 loadStatus.textContent = "加载钢琴音色…";
