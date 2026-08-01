@@ -59,26 +59,26 @@ const muteBtn = document.createElement("button");
 muteBtn.className = "mute-btn";
 muteBtn.textContent = "🔊 音效";
 muteBtn.title = "静音 / 取消静音";
-muteBtn.addEventListener("click", () => {
-  const m = !synth.isMuted();
-  synth.setMuted(m);
-  muteBtn.textContent = m ? "🔇 静音" : "🔊 音效";
-  muteBtn.classList.toggle("muted", m);
+muteBtn.addEventListener("click", async () => {
+  const next = !muteBtn.classList.contains("muted");
+  const actual = await synth.setMuted(next);
+  muteBtn.textContent = actual ? "🔇 静音" : "🔊 音效";
+  muteBtn.classList.toggle("muted", actual);
 });
 overlay?.appendChild(muteBtn);
 
 const loadStatus = document.createElement("div");
 loadStatus.className = "load-status";
-loadStatus.textContent = "加载钢琴音色…";
+loadStatus.textContent = "初始化原生音效…";
 overlay?.appendChild(loadStatus);
 synth.ready
   .then(() => {
-    loadStatus.textContent = "音色就绪 ✓";
+    loadStatus.textContent = "原生音效就绪 ✓";
     loadStatus.classList.add("done");
     setTimeout(() => loadStatus.remove(), 1400);
   })
   .catch(() => {
-    loadStatus.textContent = "音色加载失败（需联网）";
+    loadStatus.textContent = "音效初始化失败";
     loadStatus.classList.add("error");
   });
 

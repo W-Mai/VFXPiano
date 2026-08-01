@@ -14,9 +14,6 @@ importers:
       '@tauri-apps/plugin-opener':
         specifier: ^2
         version: 2.5.4
-      smplr:
-        specifier: ^1.0.0
-        version: 1.0.0
       three:
         specifier: ^0.185.1
         version: 0.185.1
@@ -464,10 +461,6 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  smplr@1.0.0:
-    resolution: {integrity: sha512-mCggf1Ex9oNOMl3LJNq7qlc3/aotKsH4DRFz0WgB7g7H4P1qUxmENkoqZ8FKj5vFY6CeweGNk7Uz8vOU/exQ7w==}
-    engines: {node: '>=14.0.0'}
-
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -837,8 +830,6 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.62.4
       '@rollup/rollup-win32-x64-msvc': 4.62.4
       fsevents: 2.3.3
-
-  smplr@1.0.0: {}
 
   source-map-js@1.2.1: {}
 

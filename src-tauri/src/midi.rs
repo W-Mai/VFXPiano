@@ -1,7 +1,9 @@
+use std::sync::Arc;
 use midir::{MidiInput, MidiInputConnection};
 use serde::Serialize;
-use std::sync::Mutex;
 use tauri::{AppHandle, Emitter, Manager};
+
+use crate::audio::AudioEngine;
 
 #[derive(Clone, Serialize)]
 pub struct MidiEvent {
@@ -15,6 +17,8 @@ pub struct MidiEvent {
 pub struct MidiState {
     pub conn: Mutex<Option<MidiInputConnection<()>>>,
 }
+
+use std::sync::Mutex;
 
 impl Default for MidiState {
     fn default() -> Self {
@@ -71,6 +75,18 @@ pub fn open_midi_input(app: AppHandle, port: usize) -> Result<(), String> {
                                 channel,
                             },
                         );
+                        // Route straight to the native synth (no IPC) for low latency.
+                        if let Some(e) = handle
+                            .state::<Option<Arc<AudioEngine>>>()
+                            .inner()
+                            .as_ref()
+                        {
+                            if velocity == 0 {
+                                e.note_off(note as i32);
+                            } else {
+                                e.note_on(note as i32, velocity as i32);
+                            }
+                        }
                     }
                     0x80 => {
                         let note = *message.get(1).unwrap_or(&0);
@@ -84,6 +100,13 @@ pub fn open_midi_input(app: AppHandle, port: usize) -> Result<(), String> {
                                 channel,
                             },
                         );
+                        if let Some(e) = handle
+                            .state::<Option<Arc<AudioEngine>>>()
+                            .inner()
+                            .as_ref()
+                        {
+                            e.note_off(note as i32);
+                        }
                     }
                     _ => {}
                 }
